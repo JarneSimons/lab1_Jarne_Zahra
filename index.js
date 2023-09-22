@@ -20,7 +20,7 @@ const grammar = `#JSGF V1.0; grammar commands; public <command> = ${commands.joi
   " | "
 )};`;
 
-document.querySelector("#loading").style.display = "none";
+// document.querySelector("#loading").style.display = "none";
 
 // just speech recognition settings, standard MDN documentation stuff
 const recognition = new SpeechRecognition();
@@ -35,11 +35,10 @@ recognition.interimResults = false;
 recognition.start();
 
 // on result, log result
-recognition.onresult = function (event) {
-  // log the word
+recognition.onresult = function (event) {  // log the word
   let recognizedSpeech = event.results[event.results.length - 1][0].transcript;
 
-  if (recognizedSpeech === "") return;
+  if (recognizedSpeech === "hey") {console.log("hey")};
 
   // trim word and lowercase
   recognizedSpeech = recognizedSpeech.trim().toLowerCase();
@@ -48,8 +47,6 @@ recognition.onresult = function (event) {
   // if (commands.includes(recognizedSpeech)) {
   //   document.body.style.backgroundColor = "red";
   // }
-
-
 
 
   // if word is auto, change background to img of car
@@ -65,9 +62,17 @@ recognition.onresult = function (event) {
     document.body.style.backgroundImage = "url('vliegtuig.jpg')";
   }
 
+  if (recognizedSpeech.includes("fiets")) {
+    document.body.style.backgroundImage = "url('fiets.webp')";
+  }
 
+  if (recognizedSpeech.includes("trein")) {
+    document.body.style.backgroundImage = "url('trein.jpeg')";
+  }
 
-
+  if (recognizedSpeech.includes("motor")) {
+    document.body.style.backgroundImage = "url('motor.jpeg')";
+  }
 
   // update DOM
   document.querySelector("#commando").innerHTML = recognizedSpeech;
