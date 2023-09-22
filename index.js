@@ -15,7 +15,7 @@ const SpeechRecognitionEvent =
   window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent;
 
 // grammer -> these are all commands you can say, feel free to change
-const commands = ["start", "stop"];
+const commands = ["start", "stop", "auto", "donker"];
 const grammar = `#JSGF V1.0; grammar commands; public <command> = ${commands.join(
   " | "
 )};`;
@@ -44,6 +44,31 @@ recognition.onresult = function (event) {
   // trim word and lowercase
   recognizedSpeech = recognizedSpeech.trim().toLowerCase();
 
+  //if word is in commands, change background to red
+  // if (commands.includes(recognizedSpeech)) {
+  //   document.body.style.backgroundColor = "red";
+  // }
+
+
+
+
+  // if word is auto, change background to img of car
+  if (recognizedSpeech.includes("auto")) {
+    document.body.style.backgroundImage = "url('car.webp')";
+  };
+
+  if (recognizedSpeech.includes("boot")) {
+    document.body.style.backgroundImage = "url('boot.jpg')";
+  }
+
+  if (recognizedSpeech.includes("vliegtuig")) {
+    document.body.style.backgroundImage = "url('vliegtuig.jpg')";
+  }
+
+
+
+
+
   // update DOM
   document.querySelector("#commando").innerHTML = recognizedSpeech;
 };
@@ -63,5 +88,6 @@ const makeImage = async (prompt) => {
 };
 
 makeImage(
+  // "foto van een laptop geschilderd door Vincent Van Gogh, laptop in de voorgrond, met een hond erop, in een bos, met een zonsondergang"
   "foto van een laptop geschilderd door Vincent Van Gogh, laptop in de voorgrond, met een hond erop, in een bos, met een zonsondergang"
 );
